@@ -16,6 +16,7 @@
 :root{
   --color-yellow:#f9c74f;
   --color-purple:#a831a2;
+  --color-blue:#313da8;
 }
 
 #root {
@@ -25,3 +26,16 @@
   text-align: center;
 }
 
+.App{
+  text-align: center;
+  padding: 4em 0;
+}
+
+.bg-yellow{
+  background-color: var(--color-yellow) ;
+}
+
+
+.bg-purple{
+  background-color: var(--color-purple) ;
+}
