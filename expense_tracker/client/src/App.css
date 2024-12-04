@@ -39,3 +39,10 @@
 .bg-purple{
   background-color: var(--color-purple) ;
 }
+.chart .title{
+  position:absolute;
+  left: 0;
+  right: 0;
+  top: 40%;
+margin: 0 auto;
+}
