@@ -1,6 +1,6 @@
 import { Doughnut } from 'react-chartjs-2';
 import { Chart,ArcElement} from 'chart.js';
-
+import Labels from "./Labels";
 
 Chart.register(ArcElement); // without this line, can't show on the display ,,
 
@@ -36,6 +36,7 @@ export default function Graph() {
             </div>
 <div className="flex flex-col py-10 gap-4">
 {/* labels */}
+<Labels></Labels>
 </div>
 
         </div>
