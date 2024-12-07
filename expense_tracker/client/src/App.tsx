@@ -1,5 +1,6 @@
-import Graph from './Component/Graph';
 import './App.css'
+import Graph from './Component/Graph';
+import Form from "./Component/Form";
 
 function App() {
 
@@ -13,7 +14,7 @@ function App() {
 {/* Chart */}
 <Graph></Graph>
 {/* Form */}
-
+<Form></Form>
 </div>
 
     </div>
