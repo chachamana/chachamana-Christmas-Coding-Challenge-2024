@@ -1,19 +1,20 @@
 import { useForm, SubmitHandler } from "react-hook-form";
+import List from './List';
+
 
 export default function Form() {
-
   interface IFormInput {
-    name: string
-    type: string
-    amount: number
+    name: string;
+    type: string;
+    amount: number;
   }
 
-  const { register, handleSubmit, resetField } =  useForm<IFormInput>();
+  const { register, handleSubmit, resetField } = useForm<IFormInput>();
   //↑ to use each functions from useForm
 
-const onSubmit: SubmitHandler<IFormInput> =(data)=>{
-  console.log(data);
-}
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    console.log(data);
+  };
 
   return (
     <div className="form max-w-sm mx-auto w-96">
@@ -23,6 +24,7 @@ const onSubmit: SubmitHandler<IFormInput> =(data)=>{
         <div className="grid gap-4">
           <div className="input-group">
             <input type="text" {...register("name")} placeholder="salary house rent" className="form-input" />
+          {/*spread syntax */}
           </div>
           <select {...register("type")} className="form-input" defaultValue="Savings">
             <option value="Savings">Savings</option>
@@ -37,6 +39,8 @@ const onSubmit: SubmitHandler<IFormInput> =(data)=>{
           </div>
         </div>
       </form>
+
+      <List></List>
     </div>
   );
 }
