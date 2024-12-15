@@ -14,23 +14,29 @@ app.use(express.json()); // parse data   JSON.parse(jsonData);
 //using routes
 app.use(require("./routes/route"));
 
-//mongodb connection
 const con = require("./db/connection.js");
 
-con
-  .then((db) => {
-    if (!db) return process.exit(1); // if no database
+(async function startServer() {
+    try {
+        const db = await con; // connect to MongoDB
+        // if db (false)
+        if (!db) {
+            console.error("Database connection failed");
+            process.exit(1); // finish process
+        }
 
-    // show in terminal
-    app.listen(port, () => {
-      console.log(`Server is running on port : http://localhost:${port}`);
-    });
+        // run the Server
+        app.listen(port, () => {
+            console.log(`Server is running on port : http://localhost:${port}`);
+        });
 
-    // Handle server-level errors
-    app.on("error", (err) => {
-      console.error(`Failed to connect with HTTP Server: ${err}`);
-    });
-  })
-  .catch((error) => {
-    console.error(`Connection Failed: ${error}`); // Handle database connection errors
-  });
+        // handling the Server
+        app.on("error", (err) => {
+            console.error(`Failed to connect with HTTP Server: ${err}`);
+        });
+    } catch (error) {
+        // handling the Server connection error
+        console.error(`Connection Failed: ${error}`);
+        process.exit(1); // finish process
+    }
+})();
