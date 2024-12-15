@@ -2,17 +2,25 @@
 const routes=require('express').Router();
 const controller=require('../controller/controller.js')
 
+// available to check  by post man !!(example: POST http://localhost:8080/api/categories)
+
 
 // when a client sends GET requests to routes.route('/api/categories')
-// available to check  by post man (POST http://localhost:8080/api/categories)
+
 routes.route('/api/categories') //define endpoint(URL)
-.post(controller.create_Categories) ; //controller.js ('return springs')
+.post(controller.create_Categories)
+.get(controller.get_Categories);
 
 
-//export routes (can use in other files)
+routes.route('/api/transaction')
+.post(controller.create_Transaction);
+
+
+
+//export routes
+module.exports=routes;
 /*
-example
+( example )
 const routes = require('./path/to/this/file');
 app.use(routes);
 */
-module.exports=routes;

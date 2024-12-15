@@ -14,14 +14,11 @@ app.use(express.json()); // parse data   JSON.parse(jsonData);
 //using routes
 app.use(require("./routes/route"));
 
-
-
 const con = require("./db/connection.js");
 
 (async function startServer() {
     try {
         const db = await con; // connect to MongoDB
-
         // if db (false)
         if (!db) {
             console.error("Database connection failed");
