@@ -1,8 +1,8 @@
+//defines the schema 　(set data type & default value, )
+
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-
-//defines the schema 　(set data type & default value, )
 
 //categories =>field=> ['type', 'color']
 const categories_model = new Schema({
@@ -20,15 +20,14 @@ const transactions_model = new Schema({
     date:{type:Date, default:Date.now},
 })
 
-//mongoose.model() creates and compiles models based on the schemas:
+//define models
 const Categories= mongoose.model('categories', categories_model);
 const Transactions= mongoose.model('transactions', transactions_model);
 
 
-export default Transactions;
 
-//exports both Categories and Transactions for usage in other parts of the application
-module.exports ={
+//exports both (to use in other parts of the application)
+module.exports = {
     Categories,
-    Transactions
-}
+    Transactions,
+};
