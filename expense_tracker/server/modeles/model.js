@@ -16,7 +16,7 @@ const categories_model = new Schema({
 const transactions_model = new Schema({
   name: { type: String, default: "Annoymous" },
   type: { type: String, default: "food" },
-  amount: { type: Number, },
+  amount: { type: Number, default: 0},
   date: { type: Date, default: Date.now },
 });
 
