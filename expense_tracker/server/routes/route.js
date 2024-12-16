@@ -9,13 +9,13 @@ const controller=require('../controller/controller.js')
 
 routes.route('/api/categories') //define endpoint(URL)
 .post(controller.create_Categories)
-.get(controller.get_Categories);
+.get(controller.get_Categories)
 
 
 routes.route('/api/transaction')
-.post(controller.create_Transaction);
-
-
+.post(controller.create_Transaction)
+.get(controller.get_Transaction)
+.delete(controller.delete_Transaction)
 
 //export routes
 module.exports=routes;
