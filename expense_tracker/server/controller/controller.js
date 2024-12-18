@@ -85,7 +85,7 @@ async function get_Transaction(req, res) {
 // delete http://localhost:8080/api/transaction
 async function delete_Transaction(req, res) {
   if (!req.body) {
-        //400 = error in the client side
+    //400 = error in the client side
     return res.status(400).json({ message: "Missing required parameter: id" });
   }
   try {
@@ -107,11 +107,44 @@ async function delete_Transaction(req, res) {
   }
 }
 
+// get http://localhost:8080/api/labels
+async function get_Labels(req, res) {
+  try {
+    const result = await model.Transactions.aggregate([
+      {
+        // Join Transactions & Categories collection
+        $lookup: {
+          from: "categories",
+          localField: "type", //Transactions collection field name
+          foreignField: "type", //Categories collection field name
+          as: "categories_info", // result field name
+        },
+      },
+      {
+        $unwind: "$categories_info",// Flatten categories_info field
+      },
+    ]);
+    // Map results to create a new array of objects
+    let data = result.map(v => ({
+      _id: v._id,
+      name: v.name,
+      type: v.type,
+      amount: v.amount,
+      date: v.date,
+      color: v.categories_info.color
+    }));
+    res.json(data);
+  } catch (error) {
+    res.status(400).json({ message: "Lookup Collection Error", error: error.message });
+  }
+}
+
 //export routes (can use in other files)
 module.exports = {
   create_Categories,
   get_Categories,
   create_Transaction,
   get_Transaction,
-  delete_Transaction
+  delete_Transaction,
+  get_Labels,
 };
