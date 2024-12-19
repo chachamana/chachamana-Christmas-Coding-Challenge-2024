@@ -8,31 +8,32 @@ type DataType = {
 
 const obj: DataType[] = [
   {
-    type: "Savings",
-    color: "rgb(255, 99, 132)",
+    type: "Living Expenses",
+    color: "#f74c71",
     percent: 45,
   },
   {
-    type: "investment",
+    type: "Entertainment & Hobbies",
     color: "#f9c74f",
     percent: 20,
   },
   {
-    type: "Expense",
-    color: "#f9c74f",
+    type: "Transportation",
+    color: "#4ff9e5",
+    percent: 10,
+  },
+  {
+    type: "Savings & Investments",
+    color: "#4f63f9",
+    percent: 10,
+  },
+  {
+    type: "Others",
+    color: "#f94f9e",
     percent: 10,
   },
 ];
 
-export default function Labels() {
-  return (
-    <>
-      {obj.map((v, i) => (
-        <LabelComponent key={i} data={v}></LabelComponent>
-      ))}
-    </>
-  );
-}
 
 type LabelComponentProps = {
   data: DataType;
@@ -51,5 +52,15 @@ function LabelComponent({ data }: LabelComponentProps) {
       </div>
       <h3 className="font-bold">{data.percent ?? 0}%</h3>
     </div>
+  );
+}
+
+export default function Labels() {
+  return (
+    <>
+      {obj.map((v, i) => (
+        <LabelComponent key={i} data={v}></LabelComponent>
+      ))}
+    </>
   );
 }
