@@ -8,7 +8,9 @@ const initialState = {
 export const expenseSlice = createSlice({
   name: "expense", //slice name
   initialState: {},
-  reducers: { //define action
+  reducers: {
+    //define actions //make same name "Action Creator" automatically
+
     getTransactions: (state) => {
         //get code
     },
