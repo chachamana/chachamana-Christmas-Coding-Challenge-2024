@@ -1,4 +1,5 @@
 import React from "react";
+import { apiSlice as api} from "../store/apiSlice";
 
 type DataType = {
   type: string;
