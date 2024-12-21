@@ -1,4 +1,4 @@
-import "boxicons";
+import "boxicons" ;
 
 type DataType = {
   type: string;

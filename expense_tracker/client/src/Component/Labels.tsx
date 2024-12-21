@@ -57,10 +57,16 @@ function LabelComponent({ data }: LabelComponentProps) {
 }
 
 export default function Labels() {
+
+  // use returned data
+  //useGetCategoriesQuery();  => fetch data from endpoint & state
+const {data , isFetching, isSuccess, isError}=api.useGetCategoriesQuery();
+console.log(data);
+
   return (
     <>
-      {obj.map((v, i) => (
-        <LabelComponent key={i} data={v}></LabelComponent>
+      {obj.map((v, index) => (
+        <LabelComponent key={index} data={v}></LabelComponent>
       ))}
     </>
   );
