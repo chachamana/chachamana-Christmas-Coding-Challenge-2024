@@ -6,7 +6,7 @@ async function create_Categories(req, res) {
     // create data  to save @ MongoDB
     const Create = new model.Categories({
       type: "Savings",
-      color: "#1F3B5C",
+      color: "#f74c71",
     });
 
     // save() => save data @ MONGO DB
@@ -112,7 +112,7 @@ async function get_Labels(req, res) {
   try {
     const result = await model.Transactions.aggregate([
       {
-        // Join Transactions & Categories collection
+        // Join [Transactions] & [Categories ] collection
         $lookup: {
           from: "categories",
           localField: "type", //Transactions collection field name

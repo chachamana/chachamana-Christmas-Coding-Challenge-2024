@@ -1,6 +1,6 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import List from './List';
-
+import List from "./List";
+import { useAddTransactionMutation } from "../store/apiSlice";
 
 export default function Form() {
   interface IFormInput {
@@ -9,11 +9,17 @@ export default function Form() {
     amount: number;
   }
 
+  //use each functions from useForm
   const { register, handleSubmit, resetField } = useForm<IFormInput>();
-  //↑ to use each functions from useForm
 
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    console.log(data);
+  // Using the query hook to add the data (useAddTransactionMutation() returns an array)
+  const [addTransaction] = useAddTransactionMutation();
+
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    if (!data) return {};
+    await addTransaction(data).unwrap();
+    resetField("name"); //clear the field
+    resetField("amount"); //clear the field
   };
 
   return (
@@ -24,7 +30,7 @@ export default function Form() {
         <div className="grid gap-4">
           <div className="input-group">
             <input type="text" {...register("name")} placeholder="salary house rent" className="form-input" />
-          {/*spread syntax */}
+            {/*spread syntax */}
           </div>
           <select {...register("type")} className="form-input" defaultValue="Savings">
             <option value="Savings">Savings</option>
