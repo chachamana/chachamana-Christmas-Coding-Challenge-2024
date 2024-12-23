@@ -32,10 +32,12 @@ export default function Form() {
             <input type="text" {...register("name")} placeholder="salary house rent" className="form-input" />
             {/*spread syntax */}
           </div>
-          <select {...register("type")} className="form-input" defaultValue="Savings">
+          <select {...register("type")} className="form-input" defaultValue="Living Expenses">
+            <option value="LivingExpense">Living Expense</option>
             <option value="Savings">Savings</option>
-            <option value="Expense">Expense</option>
-            <option value="investment">Investment</option>
+            <option value="Investment">Investment</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Others">Others</option>
           </select>
           <div className="input-group">
             <input type="text" {...register("amount")} placeholder="Amount" className="form-input" />

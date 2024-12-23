@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 
 //categories =>field=> ['type', 'color']
 const categories_model = new Schema({
-  type: { type: String, default: "food" },
+  type: { type: String, default: "savings" },
   color: { type: String, default: "#FCBE44" },
   date: { type: Date, default: Date.now },
 });
@@ -15,7 +15,7 @@ const categories_model = new Schema({
 //transactions =>field =>['name', 'type', 'amount', 'date']
 const transactions_model = new Schema({
   name: { type: String, default: "Annoymous" },
-  type: { type: String, default: "food" },
+  type: { type: String, default: "savings" },
   amount: { type: Number, default: 0},
   date: { type: Date, default: Date.now },
 });
