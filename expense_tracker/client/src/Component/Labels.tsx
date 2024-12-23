@@ -10,7 +10,7 @@ type DataType = {
 export default function Labels() {
   // Using the query hook to fetch the data
 
-  const { data, isFetching, isSuccess, isError } = useGetLabelsQuery();
+  const { data, isFetching, isSuccess, isError } = useGetLabelsQuery(undefined);
 
   // Default state
   let Transactions: React.ReactNode;

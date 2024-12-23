@@ -1,4 +1,6 @@
 import "boxicons" ;
+import { useGetLabelsQuery } from "../store/apiSlice";
+
 
 type DataType = {
   type: string;
@@ -6,31 +8,24 @@ type DataType = {
   percent: number;
 };
 
-const obj: DataType[] = [
-  {
-    type: "Savings",
-    color: "rgb(255, 99, 132)",
-    percent: 45,
-  },
-  {
-    type: "investment",
-    color: "#f9c74f",
-    percent: 20,
-  },
-  {
-    type: "Expense",
-    color: "#f9c74f",
-    percent: 10,
-  },
-];
-
 export default function List() {
+ // Using the query hook to fetch the data
+  const { data, isFetching, isSuccess, isError } = useGetLabelsQuery(undefined);
+
+  // Default state
+  let Transactions: React.ReactNode;
+
+  if (isFetching) {
+    Transactions = <div>Fetching</div>;
+  } else if (isSuccess && data) {
+    Transactions = data.map((v: DataType, index: number) => <Transaction key={index} category={v} />);
+  } else if (isError) {
+    Transactions = <div>Error</div>;
+  }
   return (
     <div className="flex flex-col py-6 gap-3">
       <h1 className="py-4 text-md font-bold text-xl">History</h1>
-      {obj.map((v, i) => (
-        <Transaction key={i} category={v} /> // repeat <Transaction / > (below
-      ))}
+      {Transactions}
     </div>
   );
 }

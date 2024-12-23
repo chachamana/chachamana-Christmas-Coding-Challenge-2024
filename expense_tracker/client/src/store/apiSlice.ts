@@ -6,6 +6,10 @@ const baseURL = "http://localhost:8080";
 
 export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: baseURL }), // Base URL
+
+   // タグの種類を定義
+   tagTypes: ['transaction', 'categories'],
+
   endpoints: (builder) => ({
 
     /********************************
@@ -15,11 +19,13 @@ export const apiSlice = createApi({
     //fetch categories (generate "useGetCategoriesQuery")
     getCategories: builder.query({
       query: () => "/api/categories", // GET Request (http://localhost:8080/api/categories)
+      providesTags:["categories"]
     }),
 
     //fetch labels (generate "useGetLabelsQuery ")
     getLabels: builder.query({
       query: () => "/api/labels", // GET Request (http://localhost:8080/api/categories)
+      providesTags:["transaction"] //used for builder.query ( add tag)
     }),
 
     /********************************
@@ -33,6 +39,8 @@ export const apiSlice = createApi({
         method: "POST",
         body: initialTransaction,  // Send transaction data to server
       }),
+      invalidatesTags:["transaction"] //RTK Query refreshes the associated cached data.
+
     }),
 
     // Delete a transaction (generate "useDeleteTransactionMutation")
@@ -42,6 +50,7 @@ export const apiSlice = createApi({
         method: "DELETE",
         body: recordid,  // Send record ID for deletion
       }),
+      invalidatesTags:["transaction"]
     }),
   }),
 });
