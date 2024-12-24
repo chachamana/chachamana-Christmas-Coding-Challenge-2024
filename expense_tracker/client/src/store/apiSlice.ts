@@ -7,11 +7,10 @@ const baseURL = "http://localhost:8080";
 export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: baseURL }), // Base URL
 
-   // タグの種類を定義
-   tagTypes: ['transaction', 'categories'],
+  // タグの種類を定義
+  tagTypes: ["transaction", "categories"],
 
   endpoints: (builder) => ({
-
     /********************************
      RTK Query's Method: builder.query (fetch Data)
      ********************************/
@@ -19,13 +18,13 @@ export const apiSlice = createApi({
     //fetch categories (generate "useGetCategoriesQuery")
     getCategories: builder.query({
       query: () => "/api/categories", // GET Request (http://localhost:8080/api/categories)
-      providesTags:["categories"]
+      providesTags: ["categories"],
     }),
 
     //fetch labels (generate "useGetLabelsQuery ")
     getLabels: builder.query({
       query: () => "/api/labels", // GET Request (http://localhost:8080/api/categories)
-      providesTags:["transaction"] //used for builder.query ( add tag)
+      providesTags: ["transaction"], //used for builder.query ( add tag)
     }),
 
     /********************************
@@ -37,10 +36,9 @@ export const apiSlice = createApi({
       query: (initialTransaction) => ({
         url: "/api/transaction", //POST Request (http://localhost:8080/api/transaction )
         method: "POST",
-        body: initialTransaction,  // Send transaction data to server
+        body: initialTransaction, // Send transaction data to server
       }),
-      invalidatesTags:["transaction"] //RTK Query refreshes the associated cached data.
-
+      invalidatesTags: ["transaction"], //RTK Query refreshes the associated cached data.
     }),
 
     // Delete a transaction (generate "useDeleteTransactionMutation")
@@ -48,20 +46,15 @@ export const apiSlice = createApi({
       query: (recordid) => ({
         url: "/api/transaction", // DELETE Request  (http://localhost:8080/api/transaction )
         method: "DELETE",
-        body: recordid,  // Send record ID for deletion
+        body: recordid, // Send record ID for deletion
       }),
-      invalidatesTags:["transaction"]
+      invalidatesTags: ["transaction"],
     }),
   }),
 });
 
 // Export hooks for each endpoint
-export const {
-  useGetCategoriesQuery,
-  useGetLabelsQuery,
-  useAddTransactionMutation,
-  useDeleteTransactionMutation,
-} = apiSlice;
+export const { useGetCategoriesQuery, useGetLabelsQuery, useAddTransactionMutation, useDeleteTransactionMutation } = apiSlice;
 
 /* RTK Query offer auto-generated react fook.
 example :

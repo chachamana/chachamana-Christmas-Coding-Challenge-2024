@@ -3,19 +3,19 @@ const model = require("../modeles/model");
 // post http://localhost:8080/api/categories
 async function create_Categories(req, res) {
   try {
-    // create data  to save @ MongoDB
-    const Create = new model.Categories({
-      type: "Savings",
-      color: "#f74c71",
-    });
+    const { type, color } = req.body; // receive from client
+    if (!type || !color) {
+      return res.status(400).json({ message: "Type and color are required" });
+    }
 
+    // create data  to save @ MongoDB
+    const Create = new model.Categories({ type, color });
     // save() => save data @ MONGO DB
     const result = await Create.save();
 
-    // if successed save(), return the data(result)
+    // if successed save(), return
     return res.json(result);
   } catch (err) {
-    // if error happens, return 400
     return res.status(400).json({ message: `Error while creating categories: ${err.message}` });
   }
 }
@@ -121,17 +121,17 @@ async function get_Labels(req, res) {
         },
       },
       {
-        $unwind: "$categories_info",// Flatten categories_info field
+        $unwind: "$categories_info", // Flatten categories_info field
       },
     ]);
     // Map results to create a new array of objects
-    let data = result.map(v => ({
+    let data = result.map((v) => ({
       _id: v._id,
       name: v.name,
       type: v.type,
       amount: v.amount,
       date: v.date,
-      color: v.categories_info.color
+      color: v.categories_info.color,
     }));
     res.json(data);
   } catch (error) {

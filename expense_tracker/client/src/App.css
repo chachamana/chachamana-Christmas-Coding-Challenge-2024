@@ -51,3 +51,4 @@ margin: 0 auto;
 .form-input{
   @apply mt-1 pl-4 block w-full py-2 border border-gray-200 bg-white rounded-md focus:outline-none focus:ring-pink-600 sm:text-sm
 }
+
