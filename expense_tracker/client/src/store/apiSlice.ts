@@ -23,7 +23,7 @@ export const apiSlice = createApi({
 
     //fetch labels (generate "useGetLabelsQuery ")
     getLabels: builder.query({
-      query: () => "/api/labels", // GET Request (http://localhost:8080/api/categories)
+      query: () => "/api/labels", // GET Request (http://localhost:8080/api/labels)
       providesTags: ["transaction"], //used for builder.query ( add tag)
     }),
 

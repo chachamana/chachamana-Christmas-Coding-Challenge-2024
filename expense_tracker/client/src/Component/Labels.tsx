@@ -7,6 +7,7 @@ type DataType = {
   color: string;
   percent: number;
   name?:string;
+  date?:string;
 };
 
 export default function Labels() {
