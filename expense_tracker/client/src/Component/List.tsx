@@ -2,10 +2,10 @@ import "boxicons";
 import { useGetLabelsQuery,useDeleteTransactionMutation } from "../store/apiSlice";
 
 type DataType = {
-  _id: string;
   type: string;
   color: string;
   percent: number;
+  name?:string;
 };
 
 export default function List() {
@@ -49,7 +49,7 @@ const Transaction = ({ category, handler }: TransactionProps) => {
       <button className="px-3" onClick={handler}>
         <box-icon name="trash" color={"#424242"} size="16px" data-id={category._id ?? ""}></box-icon>
       </button>
-      <span className="block w-full">{category.type ?? ""}</span>
+      <span className="block w-full">{category.name ?? ""}</span>
     </div>
   );
 };

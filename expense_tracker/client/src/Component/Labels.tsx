@@ -1,10 +1,12 @@
 import React from "react";
 import { useGetLabelsQuery } from "../store/apiSlice";
+import { getSum,getLabels } from "../helper/helper";
 
 type DataType = {
   type: string;
   color: string;
   percent: number;
+  name?:string;
 };
 
 export default function Labels() {
@@ -15,10 +17,11 @@ export default function Labels() {
   // Default state
   let Transactions: React.ReactNode;
 
+
   if (isFetching) {
     Transactions = <div>Fetching</div>;
   } else if (isSuccess && data) {
-    Transactions = data.map((v: DataType, index: number) => <LabelComponent key={index} data={v} />);
+    Transactions = getLabels(data).map((v: DataType, index: number) => <LabelComponent key={index} data={v} />);
   } else if (isError) {
     Transactions = <div>Error</div>;
   }
@@ -37,7 +40,7 @@ function LabelComponent({ data }: LabelComponentProps) {
         <div className="w-2 h-2 rounded py-3" style={{ background: data.color ?? `#f9c74f` }}></div>
         <h3 className="text-md">{data.type ?? ""}</h3>
       </div>
-      <h3 className="font-bold">{data.percent ?? 0}%</h3>
+      <h3 className="font-bold">{Math.round(data.percent) ?? 0}%</h3>
     </div>
   );
 }
