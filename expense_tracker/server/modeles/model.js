@@ -18,6 +18,7 @@ const transactions_model = new Schema({
   type: { type: String, default: "savings" },
   amount: { type: Number, default: 0},
   date: { type: Date, default: Date.now },
+  time: { type: String },
 });
 
 //define models

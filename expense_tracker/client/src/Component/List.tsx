@@ -6,6 +6,7 @@ type DataType = {
   color: string;
   percent: number;
   name?:string;
+  date?:string;
 };
 
 export default function List() {
@@ -44,12 +45,14 @@ interface TransactionProps {
 }
 const Transaction = ({ category, handler }: TransactionProps) => {
   if (!category) return null;
+console.log(category);
   return (
-    <div className="item flex justify-center  bg-gray-50 py-2 rounded-md" style={{ borderLeft: `8px solid ${category.color ?? "#e5e5e5"}` }}>
+    <div className="item flex justify-center items-center bg-gray-50 py-2 rounded-md" style={{ borderLeft: `8px solid ${category.color ?? "#e5e5e5"}` }}>
       <button className="px-3" onClick={handler}>
-        <box-icon name="trash" color={"#424242"} size="16px" data-id={category._id ?? ""}></box-icon>
+      <box-icon name="trash" color={"#424242"} size="16px" data-id={category._id ?? ""}></box-icon>
       </button>
       <span className="block w-full">{category.name ?? ""}</span>
+      <span className="block w-full text-xs">{category.date ?? ""}</span>
     </div>
   );
 };

@@ -61,7 +61,6 @@ async function create_Transaction(req, res) {
       name,
       type,
       amount,
-      date: new Date(),
     });
     // save @database
     const savedData = await create.save();
@@ -76,7 +75,21 @@ async function create_Transaction(req, res) {
 async function get_Transaction(req, res) {
   try {
     let data = await model.Transactions.find({}); //.find() return the first value (meet the condition)
-    return res.json(data);
+
+
+    let formattedData = data.map((transaction) => {
+      const date = new Date(transaction.date);
+
+      const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+      const formattedTime = `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+      return {
+        ...transaction._doc,
+        formattedDate,
+        formattedTime,
+      };
+    });
+
+    return res.json(formattedData);
   } catch (err) {
     return res.status(400).json({ message: `Error while getting transactions: ${err.message}` });
   }
@@ -125,14 +138,22 @@ async function get_Labels(req, res) {
       },
     ]);
     // Map results to create a new array of objects
-    let data = result.map((v) => ({
-      _id: v._id,
-      name: v.name,
-      type: v.type,
-      amount: v.amount,
-      date: v.date,
-      color: v.categories_info.color,
-    }));
+    let data = result.map((v) => {
+      const date = new Date(v.date); //date format
+      const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+      const formattedTime = `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+
+      return {
+        _id: v._id,
+        name: v.name,
+        type: v.type,
+        amount: v.amount,
+        date: formattedDate,
+        time: formattedTime,
+        color: v.categories_info.color,
+      };
+    });
+
     res.json(data);
   } catch (error) {
     res.status(400).json({ message: "Lookup Collection Error", error: error.message });
